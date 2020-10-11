@@ -1,3 +1,5 @@
+#Read an Afluenta File and perform some statistics.
+
 import os, logging, openpyxl, datetime, sys, pandas, pprint
 
 class Loan:
