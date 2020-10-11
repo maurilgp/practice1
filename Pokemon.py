@@ -1,12 +1,12 @@
+#Pandas Dataframe excersices using a pokemon database.
 import pandas, re, pprint, os, logging
-
 
 class Pokemon:
     def __init__(self):
-        # self.pokemon()
-        self.exercise1()
-        self.exercise2()
-        self.exercise3()
+        self.pokemon()
+        #self.exercise1()
+        #self.exercise2()
+        #self.exercise3()
 
     def _increment(self, base, ben, pos=0):
         if pos == len(ben):
