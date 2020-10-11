@@ -1,3 +1,5 @@
+#Library of simple math operations to practice functions and classes.
+
 import math
 
 def sum(a , b):
