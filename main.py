@@ -1,4 +1,5 @@
 #This is the main file, this project itself doesn't has the purpose of doing small python excercises during the learning proceess.
+#Every file represents a different exercises and a class with the same name will contain the exercise code to execute.
 
 import DataStructures
 import FileManager
