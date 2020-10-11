@@ -1,3 +1,5 @@
+#This is the main file, this project itself doesn't has the purpose of doing small python excercises during the learning proceess.
+
 import DataStructures
 import FileManager
 from RegularExpressions import RegularExpressions
