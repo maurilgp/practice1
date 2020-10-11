@@ -1,3 +1,6 @@
+#The purpose of this script is to download the conetnt of a web page and search for other links.
+#Then try to reach the found links and keep doing the same recursively.
+
 import requests, logging, re, pprint, sys
 
 class WebDownloaer():
