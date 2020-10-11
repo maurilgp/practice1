@@ -1,3 +1,4 @@
+#Calcula el Análisis de Varianza entre varios grupos de muestras.
 import pandas, os, logging, sys
 
 class Anova:
