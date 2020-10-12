@@ -19,6 +19,7 @@ import SimFinDatabase
 import PythonForDataAnalysis_ch02
 import Pokemon
 import ANOVA
+import OutstandingBalance
 
 import sys, pyperclip, logging
 
@@ -178,4 +179,6 @@ initialize_logging()
 
 #Pokemon.Pokemon()
 
-ANOVA.Anova()
+#ANOVA.Anova()
+
+OutstandingBalance.OutstandingBalance()
