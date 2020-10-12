@@ -20,6 +20,7 @@ import PythonForDataAnalysis_ch02
 import Pokemon
 import ANOVA
 import OutstandingBalance
+import MarkowitzPortfolio
 
 import sys, pyperclip, logging
 
@@ -181,4 +182,6 @@ initialize_logging()
 
 #ANOVA.Anova()
 
-OutstandingBalance.OutstandingBalance()
+#OutstandingBalance.OutstandingBalance()
+
+MarkowitzPortfolio.MarkowitzPortofolio()

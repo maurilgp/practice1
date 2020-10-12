@@ -1,9 +1,11 @@
 # Builds a stock investment portfolio using the Markowitz theory.
+# This script uses yahoo finance to retreive stock data.
 # Expected return.
 # 1.- Download a group of company stock prices from a given period.
 # 2.- Calculate the differences.
 
-import decimal, pandas, logging
+import decimal, pandas, logging, matplotlib, yfinance
+
 class MarkowitzPortofolio:
 
     def _range(self, min, max):
@@ -47,6 +49,15 @@ class MarkowitzPortofolio:
         return expected
 
     def __init__(self):
+
+        portfolio_list = ["AAPL"]
+
+        # Get the data for the stock Apple by specifying the stock ticker, start date, and end date
+        data = yfinance.download('AAPL', '2016-01-01', '2020-01-01')
+        print(data)
+        # Plot the close prices
+        data["Close"].plot()
+        matplotlib.pyplot.show()
 
 
 
