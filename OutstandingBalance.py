@@ -20,24 +20,18 @@ class OutstandingBalance:
 
         self._debt = decimal.Decimal("2400000.00")
         self._annual_interest_rate = decimal.Decimal(".10")
-        self._monthly_interest_rate = self._annual_interest_rate / decimal.Decimal(12)
+        self._monthly_interest_rate = round(self._annual_interest_rate / decimal.Decimal(12),3)
         self._payment_periods = decimal.Decimal("120")
         self._tax_rate = decimal.Decimal(".16")
         self._period_payment = (self._debt * self._monthly_interest_rate) / (decimal.Decimal(1)-(decimal.Decimal(1)+self._monthly_interest_rate)**(-self._payment_periods))
 
-        print("Initial Debt: " + self._us_currency(self._debt))
-        print("Annual Interest Rate: " + str(self._annual_interest_rate))
-        print("Monthly Interest Rate: " + str(self._monthly_interest_rate))
-        print("Number of payment periods: " + str(self._tax_rate))
-        print("Period Payment Before Taxes: " + self._us_currency(self._period_payment))
-
         for i in range(int(self._payment_periods)+1):
             if i == 0:
-                period_payment_list.append(None)
-                interests_list.append(None)
-                tax_interests_list.append(None)
-                amortization_list.append(None)
-                period_payment_tax_list.append(None)
+                period_payment_list.append(0)
+                interests_list.append(0)
+                tax_interests_list.append(0)
+                amortization_list.append(0)
+                period_payment_tax_list.append(0)
                 balance_list.append(self._debt)
             else:
                 period_payment_list.append(self._period_payment)
@@ -57,6 +51,16 @@ class OutstandingBalance:
             }
         )
 
+        print("#####################################################################")
+        print("                           BALANCE STATEMENT")
+        print("#####################################################################")
+        print("Initial Debt: " + self._us_currency(self._debt))
+        print("Annual Interest Rate: " + str(self._annual_interest_rate))
+        print("Monthly Interest Rate: " + str(self._monthly_interest_rate))
+        print("Tax Rate: " + str(self._tax_rate))
+        print("Number of payment periods: "+str(self._payment_periods))
+        print("Period Payment Before Taxes: " + self._us_currency(self._period_payment))
+        print("#####################################################################")
         print(debt_df)
 
     def _us_currency_list(self, number_list):
@@ -66,4 +70,4 @@ class OutstandingBalance:
         return ucl
 
     def _us_currency(self, number):
-        return babel.numbers.format_currency(number, "USD", locale="en_US")
+        return babel.numbers.format_currency(round(number, 2), "USD", locale="en_US")
