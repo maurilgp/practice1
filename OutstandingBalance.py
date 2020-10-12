@@ -1,5 +1,5 @@
 # Balance de Saldos Insolutos
-import decimal, os, logging, pandas, babel
+import decimal, os, logging, pandas, babel, sys
 
 class OutstandingBalance:
 
@@ -51,6 +51,7 @@ class OutstandingBalance:
             }
         )
 
+        os.system("cls")
         print("#####################################################################")
         print("                           BALANCE STATEMENT")
         print("#####################################################################")
