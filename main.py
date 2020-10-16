@@ -21,6 +21,7 @@ import Pokemon
 import ANOVA
 import OutstandingBalance
 import MarkowitzPortfolio
+import IntrinsicValue
 
 import sys, pyperclip, logging
 
@@ -184,4 +185,6 @@ initialize_logging()
 
 #OutstandingBalance.OutstandingBalance()
 
-MarkowitzPortfolio.MarkowitzPortofolio()
+#MarkowitzPortfolio.MarkowitzPortofolio()
+
+IntrinsicValue.IntrinsicValue()

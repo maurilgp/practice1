@@ -4,7 +4,7 @@
 # 1.- Download a group of company stock prices from a given period.
 # 2.- Calculate the differences.
 
-import decimal, pandas, logging, matplotlib, yfinance
+import decimal, pandas, logging, matplotlib, yfinance, pprint
 
 class MarkowitzPortofolio:
 
@@ -52,12 +52,20 @@ class MarkowitzPortofolio:
 
         portfolio_list = ["AAPL"]
 
+
+
         # Get the data for the stock Apple by specifying the stock ticker, start date, and end date
         data = yfinance.download('AAPL', '2016-01-01', '2020-01-01')
         print(data)
         # Plot the close prices
-        data["Close"].plot()
-        matplotlib.pyplot.show()
+        #data["Close"].plot()
+        #matplotlib.pyplot.show()
+
+        ticker_data = yfinance.Ticker("AAPL")
+        pprint.pprint(ticker_data.info)
+
+
+        print(ticker_data.calendar)
 
 
 
