@@ -40,13 +40,13 @@ class MarkowitzPortofolio:
         covar = self._covar(number_list_x,number_list_y)
         variance_x = self._variance(number_list_x)
         variance_y = self._variance(number_list_y)
-        return  covar / decimal.Decimal.sqrt(variance_x * variance_y)
+        return covar / decimal.Decimal.sqrt(variance_x * variance_y)
 
     def _stock_expected_return(self,probability_list, return_list):
         expected = decimal.Decimal(0)
         for i in range(len(return_list)):
             expected += probability_list[i] * return_list[i]
-        return expected
+        return expected/len(return_list)
 
     def _stock_variance(self,probability_list, return_list):
         expected_return = self._stock_expected_return(probability_list,return_list)
@@ -60,10 +60,11 @@ class MarkowitzPortofolio:
 
     def __init__(self):
         company_list = ["AM", "ANET", "BAC", "CSCO", "INTC", "MU"]
-        start_date = "2016-01-01"
+        start_date = "2018-01-01"
         today_date = datetime.datetime.today()
         end_date = str(today_date.year)+"-"+str(today_date.month)+"-"+str(today_date.day)
 
+        #Retrieve Data from Yahoo finance. Last values are at the End.
         stock_price_dict = {}
         for i in company_list:
             data = yfinance.download(i, start_date, end_date)
@@ -71,16 +72,32 @@ class MarkowitzPortofolio:
 
         with pandas.ExcelWriter("tempfiles\\MarkowitzPort.xlsx") as writer:
             for i in company_list:
-                stock_price_dict[i].to_excel(writer,sheet_name=i)
+                stock_price_dict[i].to_excel(writer, sheet_name=i)
 
         diferences_dict = {}
+        expected_return_dict = {}
+        variance_dict = {}
+        stdev_dict = {}
         for i in company_list:
             diferences_list = []
             stock_prices = stock_price_dict[i]
             for j in range(len(stock_prices)):
                 if j > 0:
-                    diferences_list.append(stock_prices[j]-stock_prices[j-1])
+                    diferences_list.append(stock_prices[j]/stock_prices[j-1]-1)
             diferences_dict[i] = diferences_list
+            probability_list = [1/len(diferences_list)] * len(diferences_list)
+            expected_return_dict[i] = self._stock_expected_return(probability_list, diferences_list)
+            variance_dict[i] = self._stock_variance(probability_list,diferences_list)
+            stdev_dict[i] = self._stock_stdev(probability_list,diferences_list)
+
+        print("Expected Returns: ")
+        pprint.pprint(expected_return_dict)
+        print("Variance: ")
+        pprint.pprint(variance_dict)
+        print("Standard Deviation: ")
+        pprint.pprint(stdev_dict)
+
+
 
         print("Markowitz Investment Portfolio Builder")
         print("Companies: ")
