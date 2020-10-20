@@ -4,7 +4,7 @@
 # 1.- Download a group of company stock prices from a given period.
 # 2.- Calculate the differences.
 
-import decimal, pandas, logging, matplotlib, yfinance, pprint
+import decimal, pandas, logging, matplotlib, yfinance, pprint, datetime
 
 class MarkowitzPortofolio:
 
@@ -42,30 +42,66 @@ class MarkowitzPortofolio:
         variance_y = self._variance(number_list_y)
         return  covar / decimal.Decimal.sqrt(variance_x * variance_y)
 
-    def _expected_return(self,probability_list, return_list):
+    def _stock_expected_return(self,probability_list, return_list):
         expected = decimal.Decimal(0)
         for i in range(len(return_list)):
             expected += probability_list[i] * return_list[i]
         return expected
 
-    def __init__(self):
+    def _stock_variance(self,probability_list, return_list):
+        expected_return = self._stock_expected_return(probability_list,return_list)
+        variance = decimal.Decimal(0)
+        for i in range(len(probability_list)):
+            variance += probability_list[i]*(return_list[i]-expected_return)**2
+        return variance
 
-        portfolio_list = ["AAPL"]
+    def _stock_stdev(self, probability_list, return_list):
+        return self._stock_variance(probability_list, return_list).sqrt()
+
+    def __init__(self):
+        company_list = ["AM", "ANET", "BAC", "CSCO", "INTC", "MU"]
+        start_date = "2016-01-01"
+        today_date = datetime.datetime.today()
+        end_date = str(today_date.year)+"-"+str(today_date.month)+"-"+str(today_date.day)
+
+        stock_price_dict = {}
+        for i in company_list:
+            data = yfinance.download(i, start_date, end_date)
+            stock_price_dict[i] = data["Close"]
+
+        with pandas.ExcelWriter("tempfiles\\MarkowitzPort.xlsx") as writer:
+            for i in company_list:
+                stock_price_dict[i].to_excel(writer,sheet_name=i)
+
+        diferences_dict = {}
+        for i in company_list:
+            diferences_list = []
+            stock_prices = stock_price_dict[i]
+            for j in range(len(stock_prices)):
+                if j > 0:
+                    diferences_list.append(stock_prices[j]-stock_prices[j-1])
+            diferences_dict[i] = diferences_list
+
+        print("Markowitz Investment Portfolio Builder")
+        print("Companies: ")
+        pprint.pprint(company_list)
+        print("Start Date:" + start_date)
+        print("End Date: " + end_date)
+
+
 
 
 
         # Get the data for the stock Apple by specifying the stock ticker, start date, and end date
-        data = yfinance.download('AAPL', '2016-01-01', '2020-01-01')
-        print(data)
+        #data = yfinance.download('AAPL', '2016-01-01', '2020-01-01')
+        #print(data)
         # Plot the close prices
         #data["Close"].plot()
         #matplotlib.pyplot.show()
 
-        ticker_data = yfinance.Ticker("AAPL")
-        pprint.pprint(ticker_data.info)
-
-
-        print(ticker_data.calendar)
+        #ticker_data = yfinance.Ticker("AAPL")
+        #pprint.pprint(ticker_data.info)
+        #print(ticker_data.calendar)
 
 
 

@@ -185,6 +185,6 @@ initialize_logging()
 
 #OutstandingBalance.OutstandingBalance()
 
-#MarkowitzPortfolio.MarkowitzPortofolio()
+MarkowitzPortfolio.MarkowitzPortofolio()
 
-IntrinsicValue.IntrinsicValue()
+#IntrinsicValue.IntrinsicValue()
