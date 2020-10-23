@@ -1,25 +1,64 @@
 import decimal, babel, datetime, pandas
 
-class IntrinsicValue:
+class IntrinsicValueParameters:
     def __init__(self):
-        self._company = "Cisco Systems"
-        self._ticker = "CSCO"
-        self._current_share_price = decimal.Decimal(39.81)
-        self._date = datetime.datetime.strptime("2020/10/14", "%Y/%m/%d")
-        self._shares_outstanding = decimal.Decimal("4233430000")
-        self._free_cash_flow = decimal.Decimal("14656000000")
-        self._business_grow_rate_percent = decimal.Decimal("1.55")
-        self._business_tax_rate_percent = decimal.Decimal("19.73")
-        self._business_interest_rate_percent = decimal.Decimal("3.10")
-        self._market_capitalization = decimal.Decimal("168533000000")
-        self._beta_coefficient = decimal.Decimal("0.83")
-        self._risk_free_rate_percent = decimal.Decimal("0.732")
-        self._market_risk_premium_percent = decimal.Decimal("5.6")
-        self._long_term_debt = decimal.Decimal("11578000000")
-        self._short_term_debt = decimal.Decimal("3005000000")
-        self._total_business_cash = decimal.Decimal("29419000000")
-        self._gdp_growth_rate_percent = decimal.Decimal("1.26")
-        self._total_business_debt = decimal.Decimal("17499600000")
+        # company: string
+        self.company = None
+        # ticker: string
+        self.ticker = None
+        # current_share_price: decimal.Decimal()
+        self.current_share_price = None
+        # date: datetime.datetime
+        self.date = None
+        # shares_outstanding: decimal.Decimal()
+        self.shares_outstanding = None
+        # free_cash_flow : decimal.Decimal()
+        self.free_cash_flow = None
+        # business_grow_rate_percent : decimal.Decimal()
+        self.business_grow_rate_percent = None
+        # business_tax_rate_percent : decimal.Decimal()
+        self.business_tax_rate_percent = None
+        # business_interest_rate_percent : decimal.Decimal()
+        self.business_interest_rate_percent = None
+        # market_capitalization : decimal.Decimal()
+        self.market_capitalization = None
+        # beta_coefficient : decimal.Decimal()
+        self.beta_coefficient = None
+        # risk_free_rate_percent : decimal.Decimal()
+        self.risk_free_rate_percent = None
+        # market_risk_premium_percent : decimal.Decimal()
+        self.market_risk_premium_percent = None
+        # long_term_debt : decimal.Decimal()
+        self.long_term_debt = None
+        # short_term_debt : decimal.Decimal()
+        self.short_term_debt = None
+        # total_business_cash : decimal.Decimal()
+        self.total_business_cash = None
+        # gdp_growth_rate_percent : decimal.Decimal()
+        self.gdp_growth_rate_percent = None
+        # total_business_debt : decimal.Decimal()
+        self.total_business_debt = None
+
+class IntrinsicValue:
+    def __init__(self, params):
+        self._company = params.company
+        self._ticker = params.ticker
+        self._current_share_price = params.current_share_price
+        self._date = params.date
+        self._shares_outstanding = params.shares_outstanding
+        self._free_cash_flow = params.free_cash_flow
+        self._business_grow_rate_percent = params.business_grow_rate_percent
+        self._business_tax_rate_percent = params.business_tax_rate_percent
+        self._business_interest_rate_percent = params.business_interest_rate_percent
+        self._market_capitalization = params.market_capitalization
+        self._beta_coefficient = params.beta_coefficient
+        self._risk_free_rate_percent = params.risk_free_rate_percent
+        self._market_risk_premium_percent = params.market_risk_premium_percent
+        self._long_term_debt = params.long_term_debt
+        self._short_term_debt = params.short_term_debt
+        self._total_business_cash = params.total_business_cash
+        self._gdp_growth_rate_percent = params.gdp_growth_rate_percent
+        self._total_business_debt = params.total_business_debt
 
         self._market_value_debt = (self._long_term_debt + self._short_term_debt) * decimal.Decimal("1.20")
         self._cost_equity = self._risk_free_rate_percent + self._beta_coefficient * self._market_risk_premium_percent
@@ -43,7 +82,7 @@ class IntrinsicValue:
             self._discount_factor.append(df)
             self._discounted_cash_flow.append(dcf)
 
-        self._net_present_value = self._sum(self._discounted_cash_flow)
+        self._net_present_value = sum(self._discounted_cash_flow)
         self._perpetuity_growth_rate_percent = self._gdp_growth_rate_percent
         self._last_year_discounted_cash_flow = self._discounted_cash_flow[len(self._discounted_cash_flow)-1]
         self._perpetuity_value = (self._last_year_discounted_cash_flow *
@@ -93,12 +132,6 @@ class IntrinsicValue:
         print("Intrinsic Value: "+self._us_curr(self._intrinsic_value))
         print("Intrinsic Value per Share: "+self._us_curr(self._intrinsic_value_share))
 
-    def _sum(self, values):
-        sum = 0
-        for v in values:
-            sum += v
-        return sum
-
     def _us_num(self, number):
         return babel.numbers.format_number(number, locale="en_US")
 
@@ -110,3 +143,54 @@ class IntrinsicValue:
         for v in values:
             us_curr_list.append(self._us_curr(v))
         return us_curr_list
+
+
+def main():
+    #Cisco Systems
+    # params = IntrinsicValueParameters()
+    # params.company = "Cisco Systems"
+    # params.ticker = "CSCO"
+    # params.current_share_price = decimal.Decimal(39.81)
+    # params.date = datetime.datetime.strptime("2020/10/14", "%Y/%m/%d")
+    # params.shares_outstanding = decimal.Decimal("4233430000")
+    # params.free_cash_flow = decimal.Decimal("14656000000")
+    # params.business_grow_rate_percent = decimal.Decimal("1.55")
+    # params.business_tax_rate_percent = decimal.Decimal("19.73")
+    # params.business_interest_rate_percent = decimal.Decimal("3.10")
+    # params.market_capitalization = decimal.Decimal("168533000000")
+    # params.beta_coefficient = decimal.Decimal("0.83")
+    # params.risk_free_rate_percent = decimal.Decimal("0.732")
+    # params.market_risk_premium_percent = decimal.Decimal("5.6")
+    # params.long_term_debt = decimal.Decimal("11578000000")
+    # params.short_term_debt = decimal.Decimal("3005000000")
+    # params.total_business_cash = decimal.Decimal("29419000000")
+    # params.gdp_growth_rate_percent = decimal.Decimal("1.26")
+    # params.total_business_debt = decimal.Decimal("17499600000")
+    # intrinsic_value = IntrinsicValue(params)
+
+    #Intel
+    params = IntrinsicValueParameters()
+    params.company = "Cisco Systems"
+    params.ticker = "CSCO"
+    params.current_share_price = decimal.Decimal(39.81)
+    params.date = datetime.datetime.strptime("2020/10/14", "%Y/%m/%d")
+    params.shares_outstanding = decimal.Decimal("4233430000")
+    params.free_cash_flow = decimal.Decimal("14656000000")
+    params.business_grow_rate_percent = decimal.Decimal("1.55")
+    params.business_tax_rate_percent = decimal.Decimal("19.73")
+    params.business_interest_rate_percent = decimal.Decimal("3.10")
+    params.market_capitalization = decimal.Decimal("168533000000")
+    params.beta_coefficient = decimal.Decimal("0.83")
+    params.risk_free_rate_percent = decimal.Decimal("0.732")
+    params.market_risk_premium_percent = decimal.Decimal("5.6")
+    params.long_term_debt = decimal.Decimal("11578000000")
+    params.short_term_debt = decimal.Decimal("3005000000")
+    params.total_business_cash = decimal.Decimal("29419000000")
+    params.gdp_growth_rate_percent = decimal.Decimal("1.26")
+    params.total_business_debt = decimal.Decimal("17499600000")
+    intrinsic_value = IntrinsicValue(params)
+
+
+
+
+

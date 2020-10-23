@@ -44,6 +44,12 @@ class MarkowitzPortofolio:
         variance_y = self._variance(number_list_y)
         return covar / decimal.Decimal.sqrt(variance_x * variance_y)
 
+    def _sumprod(self, number_list_x, number_list_y):
+        sum = decimal.Decimal(0)
+        for i in range(len(number_list_x)):
+            sum += number_list_x[i] * number_list_y[i]
+        return sum
+
     def _stock_expected_return(self, probability_list, diferences_list):
         expected_return_list = []
         for i in range(len(diferences_list)):
@@ -90,6 +96,17 @@ class MarkowitzPortofolio:
             matrix.append(matrix_row)
         return matrix
 
+    def _portfolio_return(self, expected_return_mean_list, inv_prop_list):
+        return self._sumprod(expected_return_mean_list, inv_prop_list)
+
+    def _porfolio_risk(self,covariance_matrix, inv_prop_list):
+        risk = decimal.Decimal(0)
+        for i in range(len(covariance_matrix)):
+            for j in range(len(covariance_matrix)):
+                risk += inv_prop_list[i]*inv_prop_list[j]*covariance_matrix[i][j]
+        return risk.sqrt()
+
+
     def _load_from_yahoo(self,company_list, file_name, start_date, end_date):
         stock_price_dict = {}
         for i in company_list:
@@ -119,6 +136,8 @@ class MarkowitzPortofolio:
         for i in range(len(matrix)):
             dictionary[columns[i]] = matrix[i]
         return pandas.DataFrame(dictionary,index=columns)
+
+
 
     def __init__(self):
         #Define the Filename of Data Source
