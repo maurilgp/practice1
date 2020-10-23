@@ -117,7 +117,12 @@ class IntrinsicValue:
         print("Market Capitalization: "+self._us_curr(self._market_capitalization))
         print("Beta Coefficient: "+str(self._beta_coefficient))
         print("Risk Free Rate: "+str(self._risk_free_rate_percent)+"%")
+        print("Market Risk Premium: "+str(self._market_risk_premium_percent)+"%")
+        print("Long Term Debt: "+self._us_curr(self._long_term_debt))
+        print("Short Term Debt: "+self._us_curr(self._short_term_debt))
         print("Total Business Cash: "+self._us_curr(self._total_business_cash))
+        print("GDP Growth Rate: "+str(self._gdp_growth_rate_percent)+"%")
+        print("Total Business Debt: "+self._us_curr(self._total_business_debt))
         print("----------------------------------------------------------------")
         print("Calculations")
         print("Market Value of Debt: "+self._us_curr(self._market_value_debt))
@@ -168,26 +173,26 @@ def main():
     # params.total_business_debt = decimal.Decimal("17499600000")
     # intrinsic_value = IntrinsicValue(params)
 
-    #Intel
+    #Intel Corporation
     params = IntrinsicValueParameters()
-    params.company = "Cisco Systems"
-    params.ticker = "CSCO"
-    params.current_share_price = decimal.Decimal(39.81)
-    params.date = datetime.datetime.strptime("2020/10/14", "%Y/%m/%d")
-    params.shares_outstanding = decimal.Decimal("4233430000")
-    params.free_cash_flow = decimal.Decimal("14656000000")
-    params.business_grow_rate_percent = decimal.Decimal("1.55")
-    params.business_tax_rate_percent = decimal.Decimal("19.73")
-    params.business_interest_rate_percent = decimal.Decimal("3.10")
-    params.market_capitalization = decimal.Decimal("168533000000")
-    params.beta_coefficient = decimal.Decimal("0.83")
+    params.company = "Intel Corporation"
+    params.ticker = "INTC"
+    params.current_share_price = decimal.Decimal("53.90")
+    params.date = datetime.datetime.strptime("2020/10/22", "%Y/%m/%d")
+    params.shares_outstanding = decimal.Decimal("4250000000")
+    params.free_cash_flow = decimal.Decimal("21900000000")
+    params.business_grow_rate_percent = decimal.Decimal("5.99")
+    params.business_tax_rate_percent = decimal.Decimal("15.20")
+    params.business_interest_rate_percent = decimal.Decimal("1.90")
+    params.market_capitalization = decimal.Decimal("229237000000")
+    params.beta_coefficient = decimal.Decimal("0.72")
     params.risk_free_rate_percent = decimal.Decimal("0.732")
     params.market_risk_premium_percent = decimal.Decimal("5.6")
-    params.long_term_debt = decimal.Decimal("11578000000")
-    params.short_term_debt = decimal.Decimal("3005000000")
-    params.total_business_cash = decimal.Decimal("29419000000")
+    params.long_term_debt = decimal.Decimal("36059000000")
+    params.short_term_debt = decimal.Decimal("504000000")
+    params.total_business_cash = decimal.Decimal("25820000000")
     params.gdp_growth_rate_percent = decimal.Decimal("1.26")
-    params.total_business_debt = decimal.Decimal("17499600000")
+    params.total_business_debt = decimal.Decimal("38350000000")
     intrinsic_value = IntrinsicValue(params)
 
 
