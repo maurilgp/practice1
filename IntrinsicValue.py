@@ -108,6 +108,7 @@ class IntrinsicValue:
         print("Initial Parameters")
         print("Company Name: "+self._company)
         print("Ticker: "+self._ticker)
+        print("Current Share Price: "+self._us_curr(self._current_share_price))
         print("Date: "+str(self._date))
         print("Shares Outstanding: "+self._us_num(self._shares_outstanding))
         print("Free Cash Flow: "+self._us_curr(self._free_cash_flow))

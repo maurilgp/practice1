@@ -18,6 +18,7 @@ import Afluenta
 import SimFinDatabase
 import PythonForDataAnalysis_ch02
 import Pokemon
+import NumPyExcercises
 import ANOVA
 import OutstandingBalance
 import MarkowitzPortfolio
@@ -187,4 +188,6 @@ initialize_logging()
 
 #MarkowitzPortfolio.MarkowitzPortofolio()
 
-IntrinsicValue.main()
+#IntrinsicValue.main()
+
+NumPyExcercises.main()
