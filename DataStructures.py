@@ -595,3 +595,17 @@ class BinaryTree:
 
         print("-------------------End BinaryTree Test-----------------")
 
+
+def main():
+    print("---------------Data Structures--------------")
+    queue = Queue()
+    queue.test()
+
+    stack = Stack()
+    stack.test()
+
+    pqueue = PriorityQueue()
+    pqueue.test()
+
+    #bTree = BinaryTree() < --- Wasnt able to finish btree need more regular expression knowledge.
+    #bTree.test()

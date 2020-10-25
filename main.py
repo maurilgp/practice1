@@ -2,6 +2,7 @@
 #Every file represents a different exercises and a class with the same name will contain the exercise code to execute.
 
 import DataStructures
+import StringManipulationExercise
 import FileManager
 from RegularExpressions import RegularExpressions
 from PasswordManager import PasswordManager
@@ -49,31 +50,10 @@ sys.setrecursionlimit(10000)
 initialize_logging()
 #logging.getLogger().disabled = True
 
-# print("---------------Data Structures--------------")
-# queue = DataStructures.Queue()
-# queue.test()
-# stack = DataStructures.Stack()
-# stack.test()
-# pqueue = DataStructures.PriorityQueue()
-# pqueue.test()
-# bTree = DataStructures.BinaryTree()
-# bTree.test()
 
-# text = "abcdefg"
-# print("text[0]\t" + text[0])
-# print("text[0:3]\t" + text[0:3])
-# print("type([]): " + str(type([])))
-# print("str(type([1,2,3])==type([])): " + str(type([1, 2, 3]) == type([])))
-# print("list==type([])): " + str(list == type([])))
-#
-# r = range(10)
-# print("r\t" + str(r))
-# print("type(r)\t" + str(type(r)))
-# for i in r:
-#     print(str(i))
-#
+# DataStructures.main()
 
-
+# StringManipulationExercise.main()
 
 # Reading files Exercise.
 # print("Reading files Exercise.")
@@ -88,61 +68,6 @@ initialize_logging()
 # re = RegularExpressions()
 
 # fe = FileExercises()
-
-# def funct1(argument1="Hola",argument2="mundo"):
-#     print(argument1+" "+argument2)
-#
-#
-# funct1()
-# funct1("lalaland","is cool")
-# funct1(argument2="is a great game", argument1="vvvvvv")
-#
-# a=funct1
-# a()
-# a("111","222")
-# a(argument1="123",argument2="456")
-#
-# def funct2(fasargument):
-#     print("--------------")
-#     fasargument()
-#     print("--------------")
-#
-#
-# funct2(funct1)
-
-
-# class sum:
-#     _sum = 0
-#
-#     def __init__(self, num1, num2):
-#         self._sum = num1 + num2
-#
-#     def __enter__(self):
-#         return self
-#
-#     def __exit__(self, exc_type, exc_val, exc_tb):
-#         print("done")
-#
-#
-#     def getSum(self):
-#         return self._sum
-#
-#
-# with sum(1, 2) as s:
-#     print(str(s.getSum()))
-#
-#
-# a = [x for x in range(10)]
-# print(str(a))
-#
-# a = [x for x in range(2,20)]
-# print(str(a))
-#
-# print(str(dir(MathLibrary)))
-# print(str(dir(MathLibrary.GeometricShapeAreas)))
-# print(str(MathLibrary.sum(1.0,2.0)))
-# a = MathLibrary.GeometricShapeAreas()
-# print(str(a.square(2.0)))
 
 
 #fe = FileManager.FileExercises()
@@ -190,4 +115,5 @@ initialize_logging()
 
 #IntrinsicValue.main()
 
-NumPyExcercises.main()
+#NumPyExcercises.main()
+
