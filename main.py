@@ -24,6 +24,8 @@ import ANOVA
 import OutstandingBalance
 import MarkowitzPortfolio
 import IntrinsicValue
+import FinancialModelingGrepExcercises
+import JSONExercises
 
 import sys, pyperclip, logging
 
@@ -47,7 +49,7 @@ def initialize_logging():
 
 
 sys.setrecursionlimit(10000)
-initialize_logging()
+#initialize_logging()
 #logging.getLogger().disabled = True
 
 
@@ -117,3 +119,6 @@ initialize_logging()
 
 #NumPyExcercises.main()
 
+#FinancialModelingGrepExcercises.main()
+
+JSONExercises.main()
