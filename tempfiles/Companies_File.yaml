@@ -1,0 +1,28 @@
+ADBE:
+  field: Software - Infrastructure
+  industry: Technology
+  market_cap: '231990000000'
+  name: Adobe
+  shares_outstanding: '480000000'
+  symbol: ADBE
+MSFT:
+  field: Software - Infrastructure
+  industry: Technology
+  market_cap: '1635000000000'
+  name: Microsoft
+  shares_outstanding: '7580000000'
+  symbol: MSFT
+ORCL:
+  field: Software - Infrastructure
+  industry: Technology
+  market_cap: '180352000000'
+  name: Oracle
+  shares_outstanding: '3040000000'
+  symbol: ORCL
+SQ:
+  field: Software - Infrastructure
+  industry: Technology
+  market_cap: '78030000000'
+  name: Square Inc.
+  shares_outstanding: '440120000000'
+  symbol: SQ

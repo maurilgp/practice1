@@ -1,0 +1,32 @@
+<?xml version ="1.0"?>
+<companies>
+
+<ADBE>
+<name>Adobe</name>
+<symbol>ADBE</symbol>
+<industry>Technology</industry>
+<field>Software - Infrastructure</field>
+<market_cap>231990000000</market_cap>
+<shares_outstanding>480000000</shares_outstanding></ADBE>
+<MSFT>
+<name>Microsoft</name>
+<symbol>MSFT</symbol>
+<industry>Technology</industry>
+<field>Software - Infrastructure</field>
+<market_cap>1635000000000</market_cap>
+<shares_outstanding>7580000000</shares_outstanding></MSFT>
+<ORCL>
+<name>Oracle</name>
+<symbol>ORCL</symbol>
+<industry>Technology</industry>
+<field>Software - Infrastructure</field>
+<market_cap>180352000000</market_cap>
+<shares_outstanding>3040000000</shares_outstanding></ORCL>
+<SQ>
+<name>Square Inc.</name>
+<symbol>SQ</symbol>
+<industry>Technology</industry>
+<field>Software - Infrastructure</field>
+<market_cap>78030000000</market_cap>
+<shares_outstanding>440120000000</shares_outstanding></SQ>
+</companies>
