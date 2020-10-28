@@ -175,28 +175,48 @@ def main():
     # intrinsic_value = IntrinsicValue(params)
 
     #Intel Corporation
+    # params = IntrinsicValueParameters()
+    # params.company = "Intel Corporation"
+    # params.ticker = "INTC"
+    # params.current_share_price = decimal.Decimal("53.90")
+    # params.date = datetime.datetime.strptime("2020/10/22", "%Y/%m/%d")
+    # params.shares_outstanding = decimal.Decimal("4250000000")
+    # params.free_cash_flow = decimal.Decimal("21900000000")
+    # params.business_grow_rate_percent = decimal.Decimal("5.99")
+    # params.business_tax_rate_percent = decimal.Decimal("15.20")
+    # params.business_interest_rate_percent = decimal.Decimal("1.90")
+    # params.market_capitalization = decimal.Decimal("229237000000")
+    # params.beta_coefficient = decimal.Decimal("0.72")
+    # params.risk_free_rate_percent = decimal.Decimal("0.732")
+    # params.market_risk_premium_percent = decimal.Decimal("5.6")
+    # params.long_term_debt = decimal.Decimal("36059000000")
+    # params.short_term_debt = decimal.Decimal("504000000")
+    # params.total_business_cash = decimal.Decimal("25820000000")
+    # params.gdp_growth_rate_percent = decimal.Decimal("1.26")
+    # params.total_business_debt = decimal.Decimal("38350000000")
+    # intrinsic_value = IntrinsicValue(params)
+
+    #Advanced Micro Devices, Inc.
     params = IntrinsicValueParameters()
-    params.company = "Intel Corporation"
-    params.ticker = "INTC"
-    params.current_share_price = decimal.Decimal("53.90")
-    params.date = datetime.datetime.strptime("2020/10/22", "%Y/%m/%d")
-    params.shares_outstanding = decimal.Decimal("4250000000")
-    params.free_cash_flow = decimal.Decimal("21900000000")
-    params.business_grow_rate_percent = decimal.Decimal("5.99")
-    params.business_tax_rate_percent = decimal.Decimal("15.20")
-    params.business_interest_rate_percent = decimal.Decimal("1.90")
-    params.market_capitalization = decimal.Decimal("229237000000")
-    params.beta_coefficient = decimal.Decimal("0.72")
+    params.company = "Advanced Micro Devices, Inc."
+    params.ticker = "AMD"
+    params.current_share_price = decimal.Decimal("78.88")
+    params.date = datetime.datetime.strptime("2020/10/27", "%Y/%m/%d")
+    params.shares_outstanding = decimal.Decimal("1170000000")
+    params.free_cash_flow = decimal.Decimal("610000000")
+    params.business_grow_rate_percent = decimal.Decimal("1.65")
+    params.business_tax_rate_percent = decimal.Decimal("8.33")
+    params.business_interest_rate_percent = decimal.Decimal("7.03")
+    params.market_capitalization = decimal.Decimal("93240000000")
+    params.beta_coefficient = decimal.Decimal("2.29")
     params.risk_free_rate_percent = decimal.Decimal("0.732")
     params.market_risk_premium_percent = decimal.Decimal("5.6")
-    params.long_term_debt = decimal.Decimal("36059000000")
-    params.short_term_debt = decimal.Decimal("504000000")
-    params.total_business_cash = decimal.Decimal("25820000000")
+    params.long_term_debt = decimal.Decimal("486000000")
+    params.short_term_debt = decimal.Decimal("0")
+    params.total_business_cash = decimal.Decimal("1780000000")
     params.gdp_growth_rate_percent = decimal.Decimal("1.26")
-    params.total_business_debt = decimal.Decimal("38350000000")
+    params.total_business_debt = decimal.Decimal("894000000")
     intrinsic_value = IntrinsicValue(params)
-
-
 
 
 

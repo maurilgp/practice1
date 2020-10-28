@@ -1,6 +1,5 @@
 #This is the main file, this project itself doesn't has the purpose of doing small python excercises during the learning proceess.
 #Every file represents a different exercises and a class with the same name will contain the exercise code to execute.
-
 import DataStructures
 import StringManipulationExercise
 import FileManager
@@ -27,7 +26,7 @@ import IntrinsicValue
 import FinancialModelingGrepExcercises
 import JSONExercises
 
-import sys, pyperclip, logging
+import sys, pyperclip, logging, unittest
 
 
 def initialize_logging():
@@ -115,10 +114,11 @@ sys.setrecursionlimit(10000)
 
 #MarkowitzPortfolio.MarkowitzPortofolio()
 
-#IntrinsicValue.main()
+IntrinsicValue.main()
 
 #NumPyExcercises.main()
 
 #FinancialModelingGrepExcercises.main()
 
-JSONExercises.main()
+#JSONExercises.main()
+
