@@ -114,7 +114,7 @@ sys.setrecursionlimit(10000)
 
 #MarkowitzPortfolio.MarkowitzPortofolio()
 
-IntrinsicValue.main()
+:IntrinsicValue.main()
 
 #NumPyExcercises.main()
 
