@@ -1,32 +1,8 @@
 #This is the main file, this project itself doesn't has the purpose of doing small python excercises during the learning proceess.
 #Every file represents a different exercises and a class with the same name will contain the exercise code to execute.
-import DataStructures
-import StringManipulationExercise
-import FileManager
-from RegularExpressions import RegularExpressions
-from PasswordManager import PasswordManager
-import MathLibrary
-import MatPlotExercises
-import RandomQuiz
-import Multiclipboard
-import ZipTxtFiles
-import LoggingExample
-import WebDownloader
-import ShoppingCart
-import ProductFinder
-import Afluenta
-import SimFinDatabase
-import PythonForDataAnalysis_ch02
-import Pokemon
-import NumPyExcercises
-import ANOVA
-import OutstandingBalance
-import MarkowitzPortfolio
-import IntrinsicValue
-import FinancialModelingGrepExcercises
-import JSONExercises
+from Financial import IntrinsicValue
 
-import sys, pyperclip, logging, unittest
+import sys, logging
 
 
 def initialize_logging():

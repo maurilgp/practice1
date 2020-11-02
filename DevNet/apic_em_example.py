@@ -5,10 +5,12 @@ import requests
 import json
 
 controller='devnetapi.cisco.com/sandbox/apic_em'
+controller="sandboxapicem.cisco.com"
 
 def getTicket():
     # put the ip address or dns of your apic-em controller in this url
     url = "https://" + controller + "/api/v1/ticket"
+    print("URL: "+url)
 
     #the username and password to access the APIC-EM Controller
     payload = {"username":"devnetuser","password":"Cisco123!"}
@@ -17,7 +19,9 @@ def getTicket():
     header = {"content-type": "application/json"}
 
     #Performs a POST on the specified url to get the service ticket
-    response= requests.post(url,data=json.dumps(payload), headers=header, verify=False)
+    response = requests.post(url, data=json.dumps(payload), headers=header, verify=False)
+    print("Status Code: "+str(response.status_code))
+    print("Encoding "+str(response.encoding))
 
     #convert response to json format
     r_json=response.json()
@@ -48,9 +52,14 @@ def getNetworkDevices(ticket):
 
   #Iterate through network device data and print the id and series name of each device
     for i in r_json["response"]:
-        print(i["id"] + "   " + i["series"])
+        print(i["series"]+"\t"+i["serialNumber"]+"\t"+i["managementIpAddress"]+"\t"+i["macAddress"]+"\t"+i["softwareVersion"]+"\t"+i["upTime"])
 
-#call the functions
-theTicket=getTicket()
-getNetworkDevices(theTicket)
 
+
+def main():
+    #call the functions
+    theTicket=getTicket()
+    getNetworkDevices(theTicket)
+
+if __name__ == "__main__":
+    main()

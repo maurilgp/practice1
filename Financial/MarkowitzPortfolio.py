@@ -141,7 +141,7 @@ class MarkowitzPortofolio:
 
     def __init__(self):
         #Define the Filename of Data Source
-        FILE_NAME = "tempfiles\\MarkowitzPort.xlsx"
+        FILE_NAME = "../tempfiles/MarkowitzPort.xlsx"
         #Define the comapnies which will be included in the analysis.
         company_list = ["AM", "ANET", "BAC", "CSCO", "INTC", "MU"]
         #Define the period to extract the stock price values.
@@ -225,7 +225,7 @@ class MarkowitzPortofolio:
         correlation_matrix_df = self._matrix_to_dataframe(company_list, correl_matrix)
         print(correlation_matrix_df)
 
-        SAVE_FILE_NAME = "tempfiles\\MarkowitzPortResults.xlsx"
+        SAVE_FILE_NAME = "../tempfiles/MarkowitzPortResults.xlsx"
         with pandas.ExcelWriter(SAVE_FILE_NAME) as writer:
             pandas.DataFrame(stock_price_dict).astype("float64").to_excel(writer, sheet_name="Stock Prices")
             statistics_df.astype("float64").to_excel(writer, sheet_name="Statistics")
