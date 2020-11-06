@@ -4,7 +4,7 @@
 # 1.- Download a group of company stock prices from a given period.
 # 2.- Calculate the differences.
 
-import pandas, logging, matplotlib, yfinance, pprint, datetime, os, numpy, scipy.optimize, math
+import pandas, logging, matplotlib.pyplot as plt, yfinance, pprint, datetime, os, numpy, scipy.optimize, math
 
 class MarkowitzPortofolio:
 
@@ -53,7 +53,7 @@ class MarkowitzPortofolio:
     def _stock_expected_return(self, probability_list, diferences_list):
         expected_return_list = []
         for i in range(len(diferences_list)):
-            expected_return_list.append(probability_list[i] * diferences_list[i])
+            expected_return_list.append(probability_list[i] * diferences_list[i]*365*100)
         return expected_return_list
 
     def _stock_variance(self, probability_list, diferences_list):
@@ -109,10 +109,10 @@ class MarkowitzPortofolio:
     def _objective_maximize_return(self, inv_distribution_list):
         return -self._portfolio_return(inv_distribution_list)
 
-    def _objective_minimize_risk(self,inv_distribution_list):
+    def _objective_minimize_risk(self, inv_distribution_list):
         return self._portfolio_risk(inv_distribution_list)
 
-    def _objective_maximise_return_minimize_risk(self,inv_distribution_list):
+    def _objective_maximize_return_minimize_risk(self, inv_distribution_list):
         return -self._portfolio_return(inv_distribution_list) / self._portfolio_risk(inv_distribution_list)
 
     def _constrain1(self, inv_distribution_list):
@@ -211,12 +211,11 @@ class MarkowitzPortofolio:
         self._covar_matrix = self._covariance_matrix(self._company_list, self._expected_return_dict)
         self._correl_matrix = self._correlation_matrix(self._company_list, self._expected_return_dict)
 
-        method = "Powell"
+        method = "SLSQP"
         b = (0.0, 1.0)
         bounds = [b] * len(self._company_list)
         x0 = numpy.array(self._inv_distribution_list)
-        cons1 = {"type": "eq", "fun": "self._constrain1"}
-        constraints = [cons1]
+        constraints = {"type": "eq", "fun": self._constrain1}
         # Maximize Porfolio Return.
         solution_max_return = scipy.optimize.minimize(
             fun=self._objective_maximize_return,
@@ -229,16 +228,16 @@ class MarkowitzPortofolio:
         solution_min_risk = scipy.optimize.minimize(
             fun=self._objective_minimize_risk,
             method=method,
-            x0 = x0,
-            bounds= bounds,
+            x0=x0,
+            bounds=bounds,
             constraints=constraints
         )
         # Maximize Portfolio Return considering Risk
         solution_max_return_min_risk = scipy.optimize.minimize(
-            fun=self._objective_maximise_return_minimize_risk,
+            fun=self._objective_maximize_return_minimize_risk,
             method=method,
-            x0 = x0,
-            bounds= bounds,
+            x0=x0,
+            bounds=bounds,
             constraints=constraints
         )
 
@@ -273,30 +272,37 @@ class MarkowitzPortofolio:
         print("----------------------------------------------------------------")
         print("Suboptimal Solution")
         print("Investment Distribution List: ")
-        print(str(self._inv_distribution_list))
+        print(str(self._inv_distribution_list)+"= "+str(sum(solution_max_return.x)))
         print("Porfolio Return: "+str(self._portfolio_return(self._inv_distribution_list)))
         print("Portfolio Risk: "+str(self._portfolio_risk(self._inv_distribution_list)))
         print("----------------------------------------------------------------")
         print("Optimization Maximize Portfolio Return")
         print("Method: "+method)
         print("Investment Distribution List: ")
-        print(solution_max_return.x)
+        #print(solution_max_return)
+        print(str(solution_max_return.x)+"= "+str(sum(solution_max_return.x)))
         print("Portfolio Return: "+str(self._portfolio_return(solution_max_return.x)))
         print("Portfolio Risk: "+str(self._portfolio_risk(solution_max_return.x)))
         print("----------------------------------------------------------------")
-        print("Optimization Maximize Portfolio Risk")
+        print("Optimization Minimize Portfolio Risk")
         print("Method: "+method)
         print("Investment Distribution List: ")
-        print(solution_min_risk.x)
+        #print(solution_min_risk)
+        print(str(solution_min_risk.x)+"= "+str(sum(solution_min_risk.x)))
         print("Portfolio Return: "+str(self._portfolio_return(solution_min_risk.x)))
         print("Portfolio Risk: "+str(self._portfolio_risk(solution_min_risk.x)))
         print("----------------------------------------------------------------")
-        print("Maximize Portfolio Return considering Risk")
+        print("Optimization Maximize Portfolio Return considering Risk")
         print("Method: "+method)
         print("Investment Distribution List: ")
-        print(solution_max_return_min_risk.x)
+        #print(solution_max_return_min_risk)
+        print(str(solution_max_return_min_risk.x)+"= "+str(sum(solution_max_return_min_risk.x)))
         print("Portfolio Return: "+str(self._portfolio_return(solution_max_return_min_risk.x)))
         print("Portfolio Risk: "+str(self._portfolio_risk(solution_max_return_min_risk.x)))
+        plt.hist(self._expected_return_dict["INTC"], color="blue",edgecolor="black",bins=100)
+        plt.hist(self._expected_return_dict["CSCO"], color="red",edgecolor="black",bins=100)
+        plt.show()
+
 
         SAVE_FILE_NAME = "../tempfiles/MarkowitzPortResults.xlsx"
         with pandas.ExcelWriter(SAVE_FILE_NAME) as writer:
