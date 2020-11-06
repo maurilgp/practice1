@@ -112,6 +112,9 @@ class MarkowitzPortofolio:
     def _objective_minimize_risk(self,inv_distribution_list):
         return self._portfolio_risk(inv_distribution_list)
 
+    def _objective_maximise_return_minimize_risk(self,inv_distribution_list):
+        return -self._portfolio_return(inv_distribution_list) / self._portfolio_risk(inv_distribution_list)
+
     def _constrain1(self, inv_distribution_list):
         return sum(inv_distribution_list) - 1.0
 
@@ -208,13 +211,13 @@ class MarkowitzPortofolio:
         self._covar_matrix = self._covariance_matrix(self._company_list, self._expected_return_dict)
         self._correl_matrix = self._correlation_matrix(self._company_list, self._expected_return_dict)
 
-        # Maximize Porfolio Return.
         method = "Powell"
         b = (0.0, 1.0)
         bounds = [b] * len(self._company_list)
         x0 = numpy.array(self._inv_distribution_list)
         cons1 = {"type": "eq", "fun": "self._constrain1"}
         constraints = [cons1]
+        # Maximize Porfolio Return.
         solution_max_return = scipy.optimize.minimize(
             fun=self._objective_maximize_return,
             method=method,
@@ -222,16 +225,17 @@ class MarkowitzPortofolio:
             bounds=bounds,
             constraints=constraints
         )
-
         # Minimize Portfolio Risk.
-        method = "Powell"
-        b = (0.0, 1.0)
-        bounds = [b] * len(self._company_list)
-        x0 = numpy.array(self._inv_distribution_list)
-        cons1 = {"type": "eq", "fun": "self._constrain1"}
-        constraints = [cons1]
         solution_min_risk = scipy.optimize.minimize(
             fun=self._objective_minimize_risk,
+            method=method,
+            x0 = x0,
+            bounds= bounds,
+            constraints=constraints
+        )
+        # Maximize Portfolio Return considering Risk
+        solution_max_return_min_risk = scipy.optimize.minimize(
+            fun=self._objective_maximise_return_minimize_risk,
             method=method,
             x0 = x0,
             bounds= bounds,
@@ -275,25 +279,24 @@ class MarkowitzPortofolio:
         print("----------------------------------------------------------------")
         print("Optimization Maximize Portfolio Return")
         print("Method: "+method)
-        print(solution_max_return)
-        print("----------------------------------------------------------------")
-        print("Maximization Optimal Solution")
+        print("Investment Distribution List: ")
         print(solution_max_return.x)
         print("Portfolio Return: "+str(self._portfolio_return(solution_max_return.x)))
         print("Portfolio Risk: "+str(self._portfolio_risk(solution_max_return.x)))
         print("----------------------------------------------------------------")
-        print("----------------------------------------------------------------")
         print("Optimization Maximize Portfolio Risk")
         print("Method: "+method)
-        print(solution_min_risk)
-        print("----------------------------------------------------------------")
-        print("Minimization Optimal Solution")
-        print(solution_min_risk)
-        print("----------------------------------------------------------------")
+        print("Investment Distribution List: ")
         print(solution_min_risk.x)
         print("Portfolio Return: "+str(self._portfolio_return(solution_min_risk.x)))
         print("Portfolio Risk: "+str(self._portfolio_risk(solution_min_risk.x)))
-
+        print("----------------------------------------------------------------")
+        print("Maximize Portfolio Return considering Risk")
+        print("Method: "+method)
+        print("Investment Distribution List: ")
+        print(solution_max_return_min_risk.x)
+        print("Portfolio Return: "+str(self._portfolio_return(solution_max_return_min_risk.x)))
+        print("Portfolio Risk: "+str(self._portfolio_risk(solution_max_return_min_risk.x)))
 
         SAVE_FILE_NAME = "../tempfiles/MarkowitzPortResults.xlsx"
         with pandas.ExcelWriter(SAVE_FILE_NAME) as writer:
