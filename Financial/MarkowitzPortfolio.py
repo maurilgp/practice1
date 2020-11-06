@@ -8,6 +8,43 @@ import pandas, logging, matplotlib.pyplot as plt, yfinance, pprint, datetime, os
 
 class MarkowitzPortofolio:
 
+##############################################################
+# Data Management
+
+    def _load_from_yahoo(self,company_list, file_name, start_date, end_date):
+        stock_price_dict = {}
+        for i in company_list:
+            data = yfinance.download(i, start_date, end_date)
+            stock_price_dict[i] = data["Close"]
+
+        stock_df = pandas.DataFrame(stock_price_dict)
+
+        with pandas.ExcelWriter(FILE_NAME) as writer:
+            stock_df.to_excel(writer,sheet_name="Stock Prices")
+
+        return stock_price_dict
+
+    def _load_from_file(self,company_list, file_name, start_date, end_date):
+        stock_df = pandas.read_excel(file_name)
+        stock_price_dict = {}
+        first = True
+        for i in stock_df.columns:
+            if first is False:
+                stock_price_dict[i] = stock_df[i]
+            else:
+                first = False
+        return stock_price_dict
+
+
+    def _matrix_to_dataframe(self,columns, matrix):
+        dictionary = {}
+        for i in range(len(matrix)):
+            dictionary[columns[i]] = matrix[i]
+        return pandas.DataFrame(dictionary,index=columns)
+
+##############################################################
+# Statistic Operations
+
     def _range(self, min, max):
         return max - min
 
@@ -106,6 +143,9 @@ class MarkowitzPortofolio:
                 risk += inv_distribution_list[i]*inv_distribution_list[j]*self._covar_matrix[i][j]
         return math.sqrt(risk)
 
+##############################################################
+# Optimization Operations
+
     def _objective_maximize_return(self, inv_distribution_list):
         return -self._portfolio_return(inv_distribution_list)
 
@@ -118,35 +158,11 @@ class MarkowitzPortofolio:
     def _constrain1(self, inv_distribution_list):
         return sum(inv_distribution_list) - 1.0
 
-    def _load_from_yahoo(self,company_list, file_name, start_date, end_date):
-        stock_price_dict = {}
-        for i in company_list:
-            data = yfinance.download(i, start_date, end_date)
-            stock_price_dict[i] = data["Close"]
+##############################################################
+# Genetic Algorithms
 
-        stock_df = pandas.DataFrame(stock_price_dict)
-
-        with pandas.ExcelWriter(FILE_NAME) as writer:
-            stock_df.to_excel(writer,sheet_name="Stock Prices")
-
-        return stock_price_dict
-
-    def _load_from_file(self,company_list, file_name, start_date, end_date):
-        stock_df = pandas.read_excel(file_name)
-        stock_price_dict = {}
-        first = True
-        for i in stock_df.columns:
-            if first is False:
-                stock_price_dict[i] = stock_df[i]
-            else:
-                first = False
-        return stock_price_dict
-
-    def _matrix_to_dataframe(self,columns, matrix):
-        dictionary = {}
-        for i in range(len(matrix)):
-            dictionary[columns[i]] = matrix[i]
-        return pandas.DataFrame(dictionary,index=columns)
+##############################################################
+# Init
 
     def __init__(self):
         # Define the Filename of Data Source
