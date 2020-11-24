@@ -53,13 +53,31 @@ class GeneticIndividual:
         return x1
 
     @staticmethod
-    def recombine(individual1, individual2):
+    def recombine1(individual1, individual2):
         x1 = individual1.x
         x2 = individual2.x
         x3 = [0] * len(x1)
         for i in range(len(x1)):
             x3[i] = (x1[i] + x2[i])/2
 
+        return GeneticIndividual(
+            minimize_fitness_function=individual1.minimize_fitness_function,
+            x=x3,
+            bounds=individual1.bounds,
+            )
+
+    @staticmethod
+    def recombine2(individual1, individual2):
+        x1 = individual1
+        x2 = individual2
+        x3 = [0] * len(x1)
+        for i in range(len(x1)):
+            a = random.randint(0,1)
+            if a == 0:
+                x3[i] = x1[i]
+            else:
+                x3[i] = x2[i]
+            
         return GeneticIndividual(
             minimize_fitness_function=individual1.minimize_fitness_function,
             x=x3,
@@ -89,8 +107,6 @@ class GeneticIndividual:
 
     def mutate3(self):
         self.x = GeneticIndividual.random_list(gene_size=self.x, bounds=self.bounds)
-
-
 
     def __init__(self, minimize_fitness_function, x, bounds):
         self.minimize_fitness_function= minimize_fitness_function
@@ -168,8 +184,6 @@ class Population:
 
     def sort(self):
         self.members = Population.quickSort(self.members, 0, len(self.members)-1)
-
-
 
     def __str__(self):
         string = "----------------------------------------"
@@ -260,7 +274,7 @@ class GeneticAlgorithm:
         print("\nRecombine:")
         print(gi1)
         print(gi2)
-        g3 = GeneticIndividual.recombine(gi1, gi2)
+        g3 = GeneticIndividual.recombine1(gi1, gi2)
         print(g3)
 
 
